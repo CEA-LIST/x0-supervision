@@ -5,6 +5,8 @@
 Amadou S. Sangare, Adrien Maglo, Mohamed Chaouch, Bertrand Luvison
 
 <br>
+Université Paris-Saclay, CEA, List, F-91120, Palaiseau, France
+<br>
 
 <a href='/'><img src='https://img.shields.io/badge/ArXiv-2407.21705-red'></a>
 </div>
