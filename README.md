@@ -3,7 +3,6 @@
 <h2><center>[CVPR 2026] Improving Controllable Generation: Faster Training and Better Performance via $x_0$-Supervision</h2>
 
 Amadou S. Sangare, Adrien Maglo, Mohamed Chaouch, Bertrand Luvison
-
 <br>
 Université Paris-Saclay, CEA, List, F-91120, Palaiseau, France
 <br>
