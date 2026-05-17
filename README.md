@@ -7,7 +7,7 @@ Amadou S. Sangare, Adrien Maglo, Mohamed Chaouch, Bertrand Luvison
 Université Paris-Saclay, CEA, List, F-91120, Palaiseau, France
 <br>
 
-<a href='/'><img src='https://img.shields.io/badge/ArXiv-2407.21705-red'></a>
+<a href='https://arxiv.org/abs/2604.05761'><img src='https://img.shields.io/badge/ArXiv-2604.05761-red'></a>
 </div>
 
 This is the official repository for paper "Improving Controllable Generation: Faster Training and Better Performance via $x_0$-Supervision".
