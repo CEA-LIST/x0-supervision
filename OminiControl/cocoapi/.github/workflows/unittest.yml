@@ -1,0 +1,52 @@
+name: Test
+
+on:
+  - push
+  - pull_request
+  - workflow_call
+
+jobs:
+  test:
+    name: Test on ${{ matrix.os }}, ${{ matrix.install_from }}, ${{ matrix.numpy }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+          - ubuntu-24.04-arm
+          - macos-latest
+          - windows-latest
+        install_from:
+          - source
+          - sdist
+        numpy:
+          - oldest-supported-numpy
+          - numpy>=2.0.0
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+
+      - name: Fix windows symlink
+        if: runner.os == 'Windows'
+        shell: bash
+        run: rm ./PythonAPI/common && cp -r ./common ./PythonAPI
+
+      - name: Test from source
+        if: matrix.install_from == 'source'
+        shell: bash
+        run: |
+          for version in 3.9 3.10 3.11 3.12 3.13 3.13t 3.14 3.14t
+          do
+            uv run --with ./PythonAPI --with '${{ matrix.numpy }}' --python $version --managed-python tests/test_cases.py
+          done
+
+      - name: Test from sdist
+        if: matrix.install_from == 'sdist'
+        shell: bash
+        run: |
+          uv build --sdist ./PythonAPI
+          for version in 3.9 3.10 3.11 3.12 3.13 3.13t 3.14 3.14t
+          do
+            uv run --with ./PythonAPI/dist/*.tar.gz --with '${{ matrix.numpy }}' --python $version --managed-python tests/test_cases.py
+          done

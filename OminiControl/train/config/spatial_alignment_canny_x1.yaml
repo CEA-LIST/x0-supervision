@@ -1,0 +1,79 @@
+flux_path: "black-forest-labs/FLUX.1-dev"
+dtype: "bfloat16"
+
+model:
+  independent_condition: false
+
+train:
+  accumulate_grad_batches: 8
+  dataloader_workers: 8
+  save_interval: 8000
+  sample_interval: 8000
+  max_epochs: 100 # Just to avoid setting max_epocohs to -1 that activates infinite training
+  max_steps: 200000
+  gradient_checkpointing: true # (Turn off for faster training)
+  save_path: "runs"
+  exp_name: "omini_canny_x1"
+  exp_version: "v0"
+
+  # Specify the type of condition to use. 
+  # Options: ["canny", "coloring", "deblurring", "depth", "depth_pred", "fill"]
+  condition_type: "canny"
+  dataset:
+    target: omini.pipeline.datasets.CannyControl
+    params:
+      metadata_path: /home/users/asangare/ControlNet/ade20k_train_caption.csv
+      condition_size: 
+        - 512
+        - 512
+      target_size: 
+        - 512
+        - 512
+      p_drop: 0.5
+
+
+  wandb:
+    project: "OminiControl"
+
+  lora_config:
+    r: 4
+    lora_alpha: 4
+    init_lora_weights: "gaussian"
+    target_modules: "(.*x_embedder|.*(?<!single_)transformer_blocks\\.[0-9]+\\.norm1\\.linear|.*(?<!single_)transformer_blocks\\.[0-9]+\\.attn\\.to_k|.*(?<!single_)transformer_blocks\\.[0-9]+\\.attn\\.to_q|.*(?<!single_)transformer_blocks\\.[0-9]+\\.attn\\.to_v|.*(?<!single_)transformer_blocks\\.[0-9]+\\.attn\\.to_out\\.0|.*(?<!single_)transformer_blocks\\.[0-9]+\\.ff\\.net\\.2|.*single_transformer_blocks\\.[0-9]+\\.norm\\.linear|.*single_transformer_blocks\\.[0-9]+\\.proj_mlp|.*single_transformer_blocks\\.[0-9]+\\.proj_out|.*single_transformer_blocks\\.[0-9]+\\.attn.to_k|.*single_transformer_blocks\\.[0-9]+\\.attn.to_q|.*single_transformer_blocks\\.[0-9]+\\.attn.to_v|.*single_transformer_blocks\\.[0-9]+\\.attn.to_out)"
+    # (Uncomment the following lines to train less parameters while keeping the similar performance)
+    # target_modules: "(.*(?<!single_)transformer_blocks\\.[0-9]+\\.norm1\\.linear|.*(?<!single_)transformer_blocks\\.[0-9]+\\.attn\\.to_k|.*(?<!single_)transformer_blocks\\.[0-9]+\\.attn\\.to_q|.*single_transformer_blocks\\.[0-9]+\\.norm\\.linear|.*single_transformer_blocks\\.[0-9]+\\.attn.to_k|.*single_transformer_blocks\\.[0-9]+\\.attn.to_q)"
+
+  optimizer:
+    type: "Prodigy"
+    params:
+      lr: 1
+      use_bias_correction: true
+      safeguard_warmup: true
+      weight_decay: 0.01
+
+  # (To use AdamW Optimizer, uncomment the following lines)
+  # optimizer:
+  #   type: AdamW
+  #   lr: 1e-4
+  #   weight_decay: 0.001
+
+eval:
+  eval_freq: 1000
+  eval_batch_size: 4
+  eval_num_workers: 8
+  eval_cfg_scale: 7.5
+  num_eval_images: 32
+  dataset:
+    target: omini.pipeline.datasets.CannyControl
+    params:
+      metadata_path: /home/users/asangare/ControlNet/ade20k_val_caption.csv
+      condition_size: 
+        - 512
+        - 512
+      target_size: 
+        - 512
+        - 512
+      p_drop: 0.
+
+  evaluator:
+    target: omini.pipeline.control_evaluators.CannyControlEvaluator

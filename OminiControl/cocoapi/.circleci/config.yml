@@ -1,0 +1,54 @@
+# TODO: remove this file since we now use gh-actions
+version: 2.1
+
+orbs:
+  python: circleci/python@0.2.1
+
+jobs:
+  build-from-source:
+    executor: python/default
+    steps:
+      - checkout
+      - run:
+          command: |
+            python -m pip install --use-feature=in-tree-build ./PythonAPI
+          name: Install From Source
+      - run:
+          command: |
+            python tests/test_cases.py
+          name: Run Simple Test Cases
+
+  build-from-source-prerelease:
+    executor: python/default
+    steps:
+      - checkout
+      - run:
+          command: |
+            python -m pip install --pre --use-feature=in-tree-build ./PythonAPI
+          name: Install From Source
+      - run:
+          command: |
+            python tests/test_cases.py
+          name: Run Simple Test Cases
+
+  build-from-sdist:
+    executor: python/default
+    steps:
+      - checkout
+      - run:
+          command: |
+            python -m pip install build
+            python -m build --sdist ./PythonAPI
+            python -m pip install --progress-bar off ./PythonAPI/dist/*.tar.gz
+          name: Install From Distribution
+      - run:
+          command: |
+            python tests/test_cases.py
+          name: Run Simple Test Cases
+
+workflows:
+  main:
+    jobs:
+      - build-from-source
+      - build-from-source-prerelease
+      - build-from-sdist
