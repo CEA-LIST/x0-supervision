@@ -22,7 +22,7 @@ train:
   dataset:
     target: omini.pipeline.datasets.CannyControl
     params:
-      metadata_path: /home/users/asangare/ControlNet/ade20k_train_caption.csv
+      metadata_path: <path_to_parent_directory>/ControlNet/ade20k_train_caption.csv
       condition_size: 
         - 512
         - 512
@@ -66,7 +66,7 @@ eval:
   dataset:
     target: omini.pipeline.datasets.CannyControl
     params:
-      metadata_path: /home/users/asangare/ControlNet/ade20k_val_caption.csv
+      metadata_path: <path_to_parent_directory>/ControlNet/ade20k_val_caption.csv
       condition_size: 
         - 512
         - 512

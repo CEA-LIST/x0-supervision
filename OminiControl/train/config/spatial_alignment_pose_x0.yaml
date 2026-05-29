@@ -23,9 +23,9 @@ train:
   dataset:
     target: omini.pipeline.datasets.PoseControl
     params:
-      root: /home/users/asangare/ControlNet/control_datasets/coco_keypoints/train
-      metadata_path: /home/users/asangare/ControlNet/control_datasets/coco_keypoints/train/metadata.csv
-      keypoints_json_path: /home/users/asangare/ControlNet/person_keypoints_train2017.json
+      root: <path_to_parent_directory>/ControlNet/control_datasets/coco_keypoints/train
+      metadata_path: <path_to_parent_directory>/ControlNet/control_datasets/coco_keypoints/train/metadata.csv
+      keypoints_json_path: <path_to_parent_directory>/ControlNet/person_keypoints_train2017.json
       condition_size: 
         - 512
         - 512
@@ -68,9 +68,9 @@ eval:
   dataset:
     target: omini.pipeline.datasets.PoseControl
     params:
-      root: /home/users/asangare/ControlNet/control_datasets/coco_keypoints/val
-      metadata_path: /home/users/asangare/ControlNet/control_datasets/coco_keypoints/val/metadata.csv
-      keypoints_json_path: /home/users/asangare/ControlNet/person_keypoints_val2017.json
+      root: <path_to_parent_directory>/ControlNet/control_datasets/coco_keypoints/val
+      metadata_path: <path_to_parent_directory>/ControlNet/control_datasets/coco_keypoints/val/metadata.csv
+      keypoints_json_path: <path_to_parent_directory>/ControlNet/person_keypoints_val2017.json
       condition_size: 
         - 512
         - 512

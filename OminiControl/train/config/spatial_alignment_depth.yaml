@@ -23,7 +23,7 @@ train:
   dataset:
     target: omini.pipeline.datasets.DepthControl
     params:
-      root: /home/users/asangare/MultiGen-20M/depth/raw
+      root: <path_to_depth_data_root>
       split: train
       condition_size: 
         - 512
@@ -66,7 +66,7 @@ eval:
   dataset:
     target: omini.pipeline.datasets.DepthControl
     params:
-      root: /home/users/asangare/MultiGen-20M/depth/raw
+      root: <path_to_depth_data_root>
       split: test
       condition_size: 
         - 512
