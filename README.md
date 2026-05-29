@@ -25,7 +25,7 @@ Read the followings for model-specific instructions:
 - [GLIGEN](./GLIGEN/README.md)
 
 # Citation
-If you find our work and code useful, please cite us:
+If you find our work or code useful, please cite us:
 
     @InProceedings{Sangare_2026_CVPR,
         author    = {Sangare, Amadou S. and Maglo, Adrien and Chaouch, Mohamed and Luvison, Bertrand},
