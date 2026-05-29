@@ -1,15 +1,17 @@
 # Instructions for ControlNet
 
 ## Installation
+Move to the ControlNet folder:
+```sh
+cd ControlNet
+```
+Then run:
 ```
 uv sync --index-strategy unsafe-best-match
 ```
 
 ## Setting up ControlNet for training
-Move to the ControlNet folder
-```sh
-cd ControlNet
-```
+
 
 To train ControlNet properly, we need to prepare the initial checkpoint in which the weights of the ControlNet blocks are initialized with the those of the original UNet blocks they have been copied from. First download the [Stable Diffusion 1.5 checkpoint](https://huggingface.co/stable-diffusion-v1-5/stable-diffusion-v1-5/resolve/main/v1-5-pruned.ckpt) and place it in the [models directory](./models). Then run:
 
